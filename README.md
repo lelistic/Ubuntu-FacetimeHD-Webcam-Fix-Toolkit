@@ -12,7 +12,7 @@ Say goodbye to webcam woes and hello to hassle-free video conferencing and camer
 After installing Ubuntu 23.10 on macOS, the webcam was not recognized. The `lsusb` command did not detect any camera devices, and there were no camera drivers visible.
 
 ### Reproducing the problem error
-After executing the `installer.sh` 
+Before executing the `installer.sh` 
 
 ```bash
 v4l2-ctl --list-devices -D
@@ -26,13 +26,21 @@ Cannot open device /dev/video0, exiting.
 
 
 ## Solution:
+### One-step solution:
+```bash
+git clone https://github.com/lelistic/Ubuntu-FacetimeHD-Webcam-Fix-Toolkit.git
+cd Ubuntu-FacetimeHD-Webcam-Fix-Toolkit/
+bash installer.sh
+```
 
-### Step 1: Install necessary tools
+### Detailed in multi-steps:
+
+#### Step 1: Install necessary tools
 ```bash
 sudo apt install git curl cpio
 ```
 
-### Step 2: Install FaceTime HD firmware
+#### Step 2: Install FaceTime HD firmware
 ```bash
 git clone https://github.com/patjak/facetimehd-firmware.git
 cd facetimehd-firmware
@@ -41,12 +49,12 @@ make
 sudo make install
 ```
 
-### Step 3: Install required packages
+#### Step 3: Install required packages
 ```bash
 sudo apt install kmod libssl-dev checkinstall
 ```
 
-### Step 4: Install bcwc_pcie driver
+#### Step 4: Install bcwc_pcie driver
 ```bash
 git clone https://github.com/patjak/bcwc_pcie.git
 cd bcwc_pcie
@@ -55,7 +63,7 @@ make
 sudo make install
 ```
 
-### Step 5: Load the driver
+#### Step 5: Load the driver
 ```bash
 sudo depmod
 sudo modprobe facetimehd
@@ -66,6 +74,10 @@ sudo modprobe facetimehd
 - The webcam became visible in applications such as video conferencing software (e.g., Zoom, Google Meet) and the `v4l2-ctl` configuration.
 ### After executing the `installer.sh` 
 ```bash
+git clone https://github.com/lelistic/Ubuntu-FacetimeHD-Webcam-Fix-Toolkit.git
+cd Ubuntu-FacetimeHD-Webcam-Fix-Toolkit/
+bash installer.sh
+
 v4l2-ctl --list-devices -D
 ```
 
